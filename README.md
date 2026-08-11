@@ -28,7 +28,7 @@ The current demo generates **200 simulated properties (4 per state)** so the int
 - Accessible labels and descriptive status text
 - Clear synthetic-data disclaimer throughout the app
 
-## 🧰 Tech Stack
+##  Tech Stack
 
 - HTML5
 - CSS3
@@ -38,7 +38,7 @@ The current demo generates **200 simulated properties (4 per state)** so the int
 - `localStorage` for saved preferences
 - GitHub Pages compatible
 
-## 🚀 Run Locally
+## Run Locally
 
 No build system or package installation is required.
 
@@ -59,7 +59,7 @@ Housing-Pulse/
 
 The current version intentionally keeps the app dependency-free so it is easy to inspect and deploy.
 
-## 📊 How the Data Works
+##  How the Data Works
 
 The property records are generated from a state-level configuration containing:
 
@@ -74,13 +74,13 @@ The property records are generated from a state-level configuration containing:
 
 A deterministic daily variation is applied to the base price so the dashboard can demonstrate changing market values without presenting the result as real-world data.
 
-## 🔒 Data Transparency
+## Data Transparency
 
 This project does **not** claim to provide real estate listings or live market data.
 
 The buttons and interface are intentionally designed as a realistic dashboard prototype. A production version could replace the synthetic data layer with licensed APIs, MLS feeds, public assessor data, or another authorized source.
 
-## 🔮 Possible Next Steps
+##  Possible Next Steps
 
 - Connect to a licensed real-estate API
 - Add an interactive U.S. map
@@ -92,16 +92,16 @@ The buttons and interface are intentionally designed as a realistic dashboard pr
 - Add backend caching and API rate-limit handling
 - Add automated tests and CI/CD
 
-## 👤 About
+##  About
 
 Built by **Emmanuel Kuh** as a portfolio project focused on analytics, interactive dashboards, data visualization, and practical web development.
 
 - GitHub: https://github.com/kuhemmanuel9-sudo
 
 
-## 📄 License
+## License
 
-MIT License — use, modify, and share the project with attribution.
+MIT License : use, modify, and share the project with attribution.
 
 ---
 
