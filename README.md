@@ -6,7 +6,7 @@ Housing Pulse is a front-end project built with HTML, CSS, and JavaScript that l
 
 The project combines real property locations and links with simulated pricing to demonstrate dashboard development, data visualization, and interactive web design.
 
-**Live Demo:** *(Add your GitHub Pages link here)*
+**Live Demo: https://kuhemmanuel9-sudo.github.io/Housing-Pulse/
 
 ---
 
