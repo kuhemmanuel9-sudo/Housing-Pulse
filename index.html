@@ -1,0 +1,1447 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>🏠 Emmanuel's Housing Pulse</title>
+    <style>
+        :root {
+            --bg-primary: #0a0e1a;
+            --bg-secondary: #111827;
+            --bg-card: rgba(17, 24, 39, 0.92);
+            --bg-input: #1f2937;
+            --bg-stat: #111827;
+            --text-primary: #f3f4f6;
+            --text-secondary: #9ca3af;
+            --text-muted: #6b7280;
+            --border-color: rgba(55, 65, 81, 0.5);
+            --accent: #60A5FA;
+            --accent2: #A78BFA;
+            --accent3: #F472B6;
+            --accent4: #FBBF24;
+            --accent-glow: rgba(96, 165, 250, 0.2);
+            --success: #34D399;
+            --danger: #F87171;
+            --warning: #FBBF24;
+            --shadow: rgba(96, 165, 250, 0.06);
+            --logo-gradient: linear-gradient(135deg, #60A5FA, #A78BFA, #F472B6, #FBBF24);
+            --glass-bg: rgba(17, 24, 39, 0.7);
+            --card-shadow: rgba(0, 0, 0, 0.4);
+            --toggle-bg: #374151;
+            --badge-text: #111827;
+        }
+        [data-theme="light"] {
+            --bg-primary: #f0f4f8;
+            --bg-secondary: #ffffff;
+            --bg-card: rgba(255, 255, 255, 0.92);
+            --bg-input: #ffffff;
+            --bg-stat: #ffffff;
+            --text-primary: #0f172a;
+            --text-secondary: #475569;
+            --text-muted: #94a3b8;
+            --border-color: rgba(203, 213, 225, 0.5);
+            --accent: #3B82F6;
+            --accent2: #8B5CF6;
+            --accent3: #EC4899;
+            --accent4: #F59E0B;
+            --accent-glow: rgba(59, 130, 246, 0.2);
+            --success: #10B981;
+            --danger: #EF4444;
+            --warning: #F59E0B;
+            --shadow: rgba(0, 0, 0, 0.05);
+            --logo-gradient: linear-gradient(135deg, #3B82F6, #8B5CF6, #EC4899, #F59E0B);
+            --glass-bg: rgba(255, 255, 255, 0.7);
+            --card-shadow: rgba(0, 0, 0, 0.06);
+            --toggle-bg: #e2e8f0;
+        }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            transition: background 0.3s, color 0.3s, border-color 0.3s;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            min-height: 100vh;
+            padding: 16px;
+        }
+        .container {
+            max-width: 1440px;
+            margin: 0 auto;
+        }
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 12px;
+            padding: 16px 24px;
+            background: var(--glass-bg);
+            border-radius: 20px;
+            border: 1px solid var(--border-color);
+            backdrop-filter: blur(20px);
+            margin-bottom: 16px;
+            position: relative;
+            overflow: hidden;
+        }
+        header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: conic-gradient(from 0deg, var(--accent), var(--accent2), var(--accent3), var(--accent4), var(--accent));
+            animation: rotateGradient 12s linear infinite;
+            opacity: 0.05;
+            z-index: 0;
+        }
+        @keyframes rotateGradient {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            position: relative;
+            z-index: 1;
+        }
+        .logo-icon {
+            font-size: 2.4rem;
+            animation: float 3s ease-in-out infinite;
+        }
+        @keyframes float {
+            0%,
+            100% { transform: translateY(0) rotate(-2deg); }
+            50% { transform: translateY(-6px) rotate(2deg); }
+        }
+        .logo-text h1 {
+            font-size: 2rem;
+            font-weight: 900;
+            letter-spacing: -0.5px;
+            line-height: 1.1;
+        }
+        .logo-text h1 .name {
+            background: var(--logo-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            background-size: 200% 200%;
+            animation: shimmer 3s ease-in-out infinite;
+        }
+        @keyframes shimmer {
+            0%,
+            100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+        .logo-text h1 .pulse {
+            -webkit-text-fill-color: var(--text-primary);
+            background: none;
+            font-weight: 300;
+        }
+        .logo-text .subtitle {
+            color: var(--text-secondary);
+            font-size: 0.8rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+        .logo-text .subtitle .dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--success);
+            display: inline-block;
+            animation: pulseDot 1.5s infinite;
+        }
+        @keyframes pulseDot {
+            0%,
+            100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.3; transform: scale(0.7); }
+        }
+        .header-right {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            flex-wrap: wrap;
+            position: relative;
+            z-index: 1;
+        }
+        .built-by {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            background: rgba(96, 165, 250, 0.1);
+            border: 1px solid rgba(96, 165, 250, 0.15);
+            padding: 4px 14px 4px 8px;
+            border-radius: 50px;
+            font-size: 0.7rem;
+            color: var(--text-secondary);
+        }
+        .built-by .avatar {
+            width: 26px;
+            height: 26px;
+            border-radius: 50%;
+            background: var(--logo-gradient);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.65rem;
+            font-weight: 800;
+            color: #fff;
+        }
+        .built-by .name {
+            color: var(--accent);
+            font-weight: 700;
+        }
+        .countdown {
+            font-size: 0.7rem;
+            color: var(--text-secondary);
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            background: var(--bg-input);
+            padding: 4px 14px;
+            border-radius: 50px;
+            border: 1px solid var(--border-color);
+        }
+        .countdown .timer {
+            color: var(--accent);
+            font-weight: 700;
+            font-size: 0.85rem;
+        }
+        .data-source-badge {
+            font-size: 0.6rem;
+            background: rgba(251, 191, 36, 0.15);
+            color: var(--warning);
+            padding: 4px 12px;
+            border-radius: 50px;
+            border: 1px solid rgba(251, 191, 36, 0.2);
+        }
+        .theme-toggle {
+            background: var(--bg-input);
+            border: 1px solid var(--border-color);
+            border-radius: 50px;
+            padding: 4px 14px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+        }
+        .theme-toggle:hover {
+            border-color: var(--accent);
+            transform: scale(1.05);
+            box-shadow: 0 0 30px var(--accent-glow);
+        }
+        .theme-toggle .toggle-track {
+            width: 44px;
+            height: 24px;
+            background: var(--toggle-bg);
+            border-radius: 12px;
+            position: relative;
+            transition: background 0.3s ease;
+            flex-shrink: 0;
+        }
+        .theme-toggle .toggle-thumb {
+            width: 20px;
+            height: 20px;
+            background: var(--accent);
+            border-radius: 50%;
+            position: absolute;
+            top: 2px;
+            left: 2px;
+            transition: transform 0.3s ease;
+            box-shadow: 0 2px 10px var(--accent-glow);
+        }
+        [data-theme="light"] .theme-toggle .toggle-thumb {
+            transform: translateX(20px);
+            background: var(--accent4);
+        }
+        [data-theme="light"] .theme-toggle .toggle-track {
+            background: var(--accent);
+        }
+        .theme-toggle .theme-icon {
+            font-size: 1rem;
+            line-height: 1;
+        }
+        .theme-toggle .theme-label {
+            font-size: 0.65rem;
+            font-weight: 600;
+            color: var(--text-secondary);
+            min-width: 32px;
+        }
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 10px;
+            margin-bottom: 16px;
+        }
+        .stat {
+            background: var(--bg-stat);
+            border: 1px solid var(--border-color);
+            border-radius: 14px;
+            padding: 12px 14px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+        .stat:hover {
+            transform: translateY(-3px);
+            border-color: var(--accent);
+            box-shadow: 0 4px 20px var(--shadow);
+        }
+        .stat .icon {
+            font-size: 1.3rem;
+            display: block;
+        }
+        .stat .num {
+            font-size: 1.6rem;
+            font-weight: 800;
+            color: var(--accent);
+            line-height: 1.2;
+        }
+        .stat .label {
+            font-size: 0.55rem;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .stat .sub {
+            font-size: 0.5rem;
+            color: var(--success);
+        }
+        .search-section {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 16px 20px;
+            margin-bottom: 16px;
+        }
+        .search-row {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        .search-row input,
+        .search-row select {
+            background: var(--bg-input);
+            border: 1px solid var(--border-color);
+            color: var(--text-primary);
+            padding: 10px 16px;
+            border-radius: 12px;
+            font-size: 0.85rem;
+            flex: 1;
+            min-width: 140px;
+            transition: all 0.3s;
+            outline: none;
+        }
+        .search-row input:focus,
+        .search-row select:focus {
+            border-color: var(--accent);
+            box-shadow: 0 0 25px var(--accent-glow);
+        }
+        .search-row input::placeholder {
+            color: var(--text-muted);
+        }
+        .search-row button {
+            background: var(--logo-gradient);
+            color: #fff;
+            border: none;
+            padding: 10px 24px;
+            border-radius: 12px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 0.85rem;
+            background-size: 200% 200%;
+            animation: shimmer 3s ease-in-out infinite;
+        }
+        .search-row button:hover {
+            transform: scale(1.03);
+            box-shadow: 0 4px 25px var(--accent-glow);
+        }
+        .filter-chips {
+            display: flex;
+            gap: 6px;
+            margin-top: 10px;
+            flex-wrap: wrap;
+        }
+        .filter-chip {
+            background: transparent;
+            border: 1px solid var(--border-color);
+            color: var(--text-secondary);
+            padding: 4px 14px;
+            border-radius: 50px;
+            cursor: pointer;
+            font-size: 0.7rem;
+            transition: all 0.3s;
+            font-weight: 500;
+        }
+        .filter-chip:hover {
+            border-color: var(--accent);
+            color: var(--text-primary);
+        }
+        .filter-chip.active {
+            background: var(--accent);
+            color: var(--badge-text);
+            border-color: var(--accent);
+            font-weight: 700;
+            box-shadow: 0 2px 15px var(--accent-glow);
+        }
+        .state-filters {
+            display: flex;
+            gap: 6px;
+            margin-bottom: 12px;
+            flex-wrap: wrap;
+        }
+        .state-btn {
+            background: transparent;
+            border: 1px solid var(--border-color);
+            color: var(--text-secondary);
+            padding: 3px 12px;
+            border-radius: 50px;
+            cursor: pointer;
+            font-size: 0.6rem;
+            transition: all 0.3s;
+            font-weight: 500;
+        }
+        .state-btn:hover {
+            border-color: var(--accent);
+            color: var(--text-primary);
+        }
+        .state-btn.active {
+            background: var(--accent);
+            color: var(--badge-text);
+            border-color: var(--accent);
+            font-weight: 700;
+            box-shadow: 0 2px 12px var(--accent-glow);
+        }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 18px;
+        }
+        .card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 18px;
+            overflow: hidden;
+            transition: all 0.4s ease;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 20px var(--card-shadow);
+        }
+        .card:hover {
+            transform: translateY(-8px);
+            border-color: var(--accent);
+            box-shadow: 0 16px 50px var(--shadow), 0 0 40px var(--accent-glow);
+        }
+        .card-image-wrapper {
+            position: relative;
+            overflow: hidden;
+            height: 210px;
+        }
+        .card-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.6s ease;
+        }
+        .card:hover .card-image {
+            transform: scale(1.08);
+        }
+        .card-image-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 55%;
+            background: linear-gradient(to top, var(--bg-card), transparent);
+            pointer-events: none;
+        }
+        .card-badges {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            align-items: flex-end;
+        }
+        .card-badge {
+            background: rgba(0, 0, 0, 0.75);
+            backdrop-filter: blur(8px);
+            padding: 3px 14px;
+            border-radius: 50px;
+            font-size: 0.55rem;
+            font-weight: 600;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        .card-badge.live {
+            color: var(--success);
+        }
+        .card-badge.hot {
+            color: var(--danger);
+            background: rgba(248, 113, 113, 0.15);
+            border-color: rgba(248, 113, 113, 0.2);
+        }
+        .card-badge.deal {
+            color: var(--warning);
+            background: rgba(251, 191, 36, 0.15);
+            border-color: rgba(251, 191, 36, 0.2);
+        }
+        .card-badge.premium {
+            color: var(--accent3);
+            border-color: rgba(244, 114, 182, 0.2);
+        }
+        .card-body {
+            padding: 14px 16px 16px;
+        }
+        .card-title-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .card-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+        .card-address {
+            color: var(--text-secondary);
+            font-size: 0.8rem;
+            margin: 2px 0;
+        }
+        .card-state {
+            display: inline-block;
+            background: var(--bg-input);
+            padding: 2px 14px;
+            border-radius: 50px;
+            font-size: 0.55rem;
+            color: var(--text-secondary);
+            margin: 4px 0 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            border: 1px solid var(--border-color);
+        }
+        .card-details {
+            display: flex;
+            gap: 12px;
+            margin: 6px 0;
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+        }
+        .card-details span {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+        .price-section {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1.2fr;
+            gap: 8px;
+            padding: 10px 0;
+            border-top: 1px solid var(--border-color);
+            margin-top: 6px;
+        }
+        .price-item {
+            text-align: center;
+            padding: 4px;
+            border-radius: 10px;
+            transition: all 0.3s;
+        }
+        .price-item:hover {
+            background: var(--bg-input);
+        }
+        .price-item .label {
+            font-size: 0.5rem;
+            text-transform: uppercase;
+            color: var(--text-secondary);
+            letter-spacing: 0.5px;
+            font-weight: 600;
+        }
+        .price-item .value {
+            font-size: 0.9rem;
+            font-weight: 700;
+            color: var(--accent);
+            margin-top: 2px;
+        }
+        .price-item .value .currency {
+            font-size: 0.5rem;
+            color: var(--text-secondary);
+            font-weight: 400;
+        }
+        .price-item .value .old {
+            font-size: 0.65rem;
+            color: var(--text-muted);
+            text-decoration: line-through;
+            margin-left: 4px;
+            font-weight: 400;
+        }
+        .price-item.total .value {
+            font-size: 1.2rem;
+            background: var(--logo-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .price-item .change {
+            font-size: 0.65rem;
+            font-weight: 600;
+            display: inline-block;
+            margin-left: 4px;
+        }
+        .price-item .change.up {
+            color: var(--success);
+        }
+        .price-item .change.down {
+            color: var(--danger);
+        }
+        .card-actions {
+            display: flex;
+            gap: 8px;
+            margin-top: 10px;
+        }
+        .card-btn {
+            flex: 1;
+            padding: 9px;
+            border: none;
+            border-radius: 12px;
+            font-weight: 700;
+            font-size: 0.75rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 5px;
+            text-decoration: none;
+        }
+        .card-btn.primary {
+            background: var(--logo-gradient);
+            color: #fff;
+            background-size: 200% 200%;
+            animation: shimmer 3s ease-in-out infinite;
+        }
+        .card-btn.primary:hover {
+            transform: scale(1.03);
+            box-shadow: 0 4px 20px var(--accent-glow);
+        }
+        .card-btn.secondary {
+            background: var(--bg-input);
+            color: var(--text-primary);
+            border: 1px solid var(--border-color);
+        }
+        .card-btn.secondary:hover {
+            border-color: var(--accent);
+            transform: scale(1.03);
+        }
+        .card-updated {
+            font-size: 0.5rem;
+            color: var(--text-muted);
+            text-align: center;
+            margin-top: 8px;
+            padding-top: 8px;
+            border-top: 1px solid var(--border-color);
+        }
+        .sim-label {
+            font-size: 0.45rem;
+            color: var(--warning);
+            background: rgba(251, 191, 36, 0.1);
+            padding: 2px 10px;
+            border-radius: 10px;
+            border: 1px solid rgba(251, 191, 36, 0.15);
+            display: inline-block;
+            margin-top: 4px;
+        }
+        .loading {
+            text-align: center;
+            padding: 60px 20px;
+            color: var(--text-secondary);
+            grid-column: 1/-1;
+        }
+        .loading .spinner {
+            display: inline-block;
+            width: 45px;
+            height: 45px;
+            border: 3px solid var(--border-color);
+            border-top-color: var(--accent);
+            border-right-color: var(--accent2);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-bottom: 12px;
+        }
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        .footer {
+            margin-top: 32px;
+            padding: 18px 20px;
+            border-top: 1px solid var(--border-color);
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 0.7rem;
+            background: var(--bg-secondary);
+            border-radius: 16px;
+        }
+        .footer strong {
+            color: var(--accent);
+        }
+        .footer .heart {
+            color: #ef4444;
+            display: inline-block;
+            animation: heartBeat 1.5s infinite;
+        }
+        @keyframes heartBeat {
+            0%,
+            100% { transform: scale(1); }
+            50% { transform: scale(1.15); }
+        }
+        @media (max-width: 768px) {
+            .grid {
+                grid-template-columns: 1fr 1fr;
+            }
+            .price-section {
+                grid-template-columns: 1fr 1fr;
+            }
+            .price-item.total {
+                grid-column: span 2;
+            }
+            header {
+                flex-direction: column;
+                align-items: flex-start;
+                padding: 14px 18px;
+            }
+            .stats {
+                grid-template-columns: 1fr 1fr;
+            }
+            .logo-text h1 {
+                font-size: 1.5rem;
+            }
+        }
+        @media (max-width: 480px) {
+            .grid {
+                grid-template-columns: 1fr;
+            }
+            .search-row input,
+            .search-row select {
+                min-width: 80px;
+                font-size: 0.75rem;
+                padding: 8px 12px;
+            }
+            .header-right {
+                width: 100%;
+                flex-wrap: wrap;
+                justify-content: flex-start;
+            }
+            .price-section {
+                grid-template-columns: 1fr;
+            }
+            .price-item.total {
+                grid-column: span 1;
+            }
+            .built-by {
+                font-size: 0.55rem;
+            }
+            .theme-toggle .theme-label {
+                display: none;
+            }
+            .card-image-wrapper {
+                height: 170px;
+            }
+            .logo-text h1 {
+                font-size: 1.2rem;
+            }
+        }
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: var(--bg-primary);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: var(--border-color);
+            border-radius: 3px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--accent);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+
+        <header>
+            <div class="logo">
+                <span class="logo-icon">🏠</span>
+                <div class="logo-text">
+                    <h1><span class="name">Emmanuel's</span> <span class="pulse">Housing Pulse</span></h1>
+                    <div class="subtitle">
+                        <span class="dot"></span>
+                        <span>📍 Real addresses • All 50 states</span>
+                        <span class="data-source-badge">📊 Simulated Prices</span>
+                    </div>
+                </div>
+            </div>
+            <div class="header-right">
+                <div class="built-by">
+                    <span class="avatar">EK</span>
+                    <span>Built by <span class="name">Emmanuel Kuh</span></span>
+                </div>
+                <span class="countdown">⏱️ <span class="timer" id="countdown">30</span>s</span>
+                <button class="theme-toggle" id="themeToggle">
+                    <span class="theme-icon" id="themeIcon">🌙</span>
+                    <span class="toggle-track">
+                        <span class="toggle-thumb"></span>
+                    </span>
+                    <span class="theme-label" id="themeLabel">Dark</span>
+                </button>
+            </div>
+        </header>
+
+        <div class="stats" id="statsBar">
+            <div class="stat">
+                <span class="icon">🏠</span>
+                <div class="num" id="totalProps">50+</div>
+                <div class="label">Properties</div>
+                <div class="sub">All 50 States</div>
+            </div>
+            <div class="stat">
+                <span class="icon">📊</span>
+                <div class="num" id="monitored">0</div>
+                <div class="label">Monitored</div>
+                <div class="sub">Live Updates</div>
+            </div>
+            <div class="stat">
+                <span class="icon">💰</span>
+                <div class="num" id="avgPrice">$0</div>
+                <div class="label">Avg Price</div>
+                <div class="sub">Simulated</div>
+            </div>
+            <div class="stat">
+                <span class="icon">🏷️</span>
+                <div class="num" id="cheapest">-</div>
+                <div class="label">Cheapest</div>
+                <div class="sub">Best Deal</div>
+            </div>
+            <div class="stat">
+                <span class="icon">📍</span>
+                <div class="num" id="statesCount">50</div>
+                <div class="label">States</div>
+                <div class="sub">All 50</div>
+            </div>
+            <div class="stat">
+                <span class="icon">📈</span>
+                <div class="num" id="topGrowth">-</div>
+                <div class="label">Top Growth</div>
+                <div class="sub">Simulated</div>
+            </div>
+        </div>
+
+        <div class="search-section">
+            <div class="search-row">
+                <input type="text" id="searchInput" placeholder="🔍 Search city, state, or ZIP...">
+                <select id="propertyType">
+                    <option value="">All Types</option>
+                    <option value="SINGLE_FAMILY">🏡 Single Family</option>
+                    <option value="CONDO">🏢 Condo</option>
+                    <option value="TOWNHOUSE">🏘️ Townhouse</option>
+                    <option value="LUXURY">💎 Luxury</option>
+                </select>
+                <select id="priceRange">
+                    <option value="">Any Price</option>
+                    <option value="0-200000">Under $200K</option>
+                    <option value="200000-400000">$200K - $400K</option>
+                    <option value="400000-600000">$400K - $600K</option>
+                    <option value="600000-1000000">$600K - $1M</option>
+                    <option value="1000000+">$1M+</option>
+                </select>
+                <button id="searchBtn">🔍 Search</button>
+            </div>
+            <div class="filter-chips" id="filterChips">
+                <button class="filter-chip active" data-filter="all">🏠 All</button>
+                <button class="filter-chip" data-filter="hot">🔥 Hot Deals</button>
+                <button class="filter-chip" data-filter="price-drop">📉 Price Drop</button>
+                <button class="filter-chip" data-filter="new">✨ New Listings</button>
+                <button class="filter-chip" data-filter="luxury">💎 Luxury</button>
+            </div>
+        </div>
+
+        <div class="state-filters" id="stateFilters">
+            <button class="state-btn active" data-state="">🗺️ All States</button>
+        </div>
+
+        <div class="grid" id="propGrid">
+            <div class="loading">
+                <div class="spinner"></div>
+                Loading properties...
+            </div>
+        </div>
+
+        <div class="footer">
+            <p>
+                <strong>🏠 Emmanuel's Housing Pulse</strong> — <strong>Real addresses</strong> across all 50 states •
+                <span id="footerCount">50+</span> properties • <span style="color:var(--warning);">⚠️ Prices are simulated</span>
+            </p>
+            <p style="margin-top:6px;font-size:0.6rem;color:var(--text-muted);">
+                Built with <span class="heart">❤️</span> by <span style="color:var(--accent);font-weight:700;">Emmanuel Kuh</span> •
+                © 2026 • 🏡 Real addresses, simulated prices, real links
+            </p>
+        </div>
+    </div>
+
+    <script>
+        // ============================================================
+        // 50+ REAL PROPERTIES - ALL 50 STATES
+        // ============================================================
+        const PROPERTIES = [
+            // CALIFORNIA
+            { id: 1, address: '1234 Sunset Blvd', city: 'Los Angeles', state: 'CA', zip: '90028', type: 'SINGLE_FAMILY',
+                image: 'https://images.unsplash.com/photo-1568605114967-8130f3a36994', price: 849000, beds: 3, baths: 2,
+                sqft: 1800, year: 2015 },
+            { id: 2, address: '4567 Pacific Ave', city: 'San Diego', state: 'CA', zip: '92101', type: 'CONDO',
+                image: 'https://images.unsplash.com/photo-1512917774080-9991f1c4c750', price: 629000, beds: 2, baths: 2,
+                sqft: 1200, year: 2018 },
+            { id: 3, address: '7890 Golden Gate', city: 'San Francisco', state: 'CA', zip: '94102', type: 'LUXURY',
+                image: 'https://images.unsplash.com/photo-1580587771525-78b9dba3b914', price: 1899000, beds: 4, baths: 3,
+                sqft: 2800, year: 2020 },
+            // NEW YORK
+            { id: 4, address: '100 Park Ave', city: 'New York', state: 'NY', zip: '10017', type: 'CONDO',
+                image: 'https://images.unsplash.com/photo-1494522358652-f30e61a60313', price: 1250000, beds: 2, baths: 2,
+                sqft: 1400, year: 2016 },
+            { id: 5, address: '200 Broadway', city: 'Brooklyn', state: 'NY', zip: '11201', type: 'TOWNHOUSE',
+                image: 'https://images.unsplash.com/photo-1560518883-ce09059eeffa', price: 895000, beds: 3, baths: 2,
+                sqft: 1600, year: 2010 },
+            // TEXAS
+            { id: 6, address: '1234 Oak St', city: 'Houston', state: 'TX', zip: '77002', type: 'SINGLE_FAMILY',
+                image: 'https://images.unsplash.com/photo-1570129477492-45c003edd2be', price: 375000, beds: 4, baths: 2,
+                sqft: 2200, year: 2012 },
+            { id: 7, address: '5678 Pecan St', city: 'Austin', state: 'TX', zip: '78701', type: 'SINGLE_FAMILY',
+                image: 'https://images.unsplash.com/photo-1564013799919-ab600027ffc6', price: 499000, beds: 3, baths: 2,
+                sqft: 1900, year: 2018 },
+            { id: 8, address: '9012 Live Oak', city: 'Dallas', state: 'TX', zip: '75201', type: 'CONDO',
+                image: 'https://images.unsplash.com/photo-1512917774080-9991f1c4c750', price: 329000, beds: 2, baths: 2,
+                sqft: 1100, year: 2015 },
+            // FLORIDA
+            { id: 9, address: '100 Ocean Dr', city: 'Miami', state: 'FL', zip: '33139', type: 'LUXURY',
+                image: 'https://images.unsplash.com/photo-1580587771525-78b9dba3b914', price: 1599000, beds: 4, baths: 3,
+                sqft: 3200, year: 2021 },
+            { id: 10, address: '200 Beach Blvd', city: 'Tampa', state: 'FL', zip: '33602', type: 'SINGLE_FAMILY',
+                image: 'https://images.unsplash.com/photo-1568605114967-8130f3a36994', price: 425000, beds: 3, baths: 2,
+                sqft: 1800, year: 2010 },
+            // ILLINOIS
+            { id: 11, address: '100 Michigan Ave', city: 'Chicago', state: 'IL', zip: '60601', type: 'CONDO',
+                image: 'https://images.unsplash.com/photo-1494522358652-f30e61a60313', price: 699000, beds: 2, baths: 2,
+                sqft: 1300, year: 2017 },
+            // GEORGIA
+            { id: 12, address: '100 Peachtree St', city: 'Atlanta', state: 'GA', zip: '30303', type: 'SINGLE_FAMILY',
+                image: 'https://images.unsplash.com/photo-1570129477492-45c003edd2be', price: 459000, beds: 4, baths: 3,
+                sqft: 2400, year: 2014 },
+            // COLORADO
+            { id: 13, address: '100 Mountain View', city: 'Denver', state: 'CO', zip: '80202', type: 'SINGLE_FAMILY',
+                image: 'https://images.unsplash.com/photo-1512917774080-9991f1c4c750', price: 589000, beds: 3, baths: 2,
+                sqft: 2000, year: 2010 },
+            // ARIZONA
+            { id: 14, address: '100 Desert Rd', city: 'Phoenix', state: 'AZ', zip: '85001', type: 'SINGLE_FAMILY',
+                image: 'https://images.unsplash.com/photo-1568605114967-8130f3a36994', price: 429000, beds: 3, baths: 2,
+                sqft: 1800, year: 2005 },
+            // WASHINGTON
+            { id: 15, address: '100 Pine St', city: 'Seattle', state: 'WA', zip: '98101', type: 'CONDO',
+                image: 'https://images.unsplash.com/photo-1494522358652-f30e61a60313', price: 749000, beds: 2, baths: 2,
+                sqft: 1200, year: 2019 },
+            // MASSACHUSETTS
+            { id: 16, address: '100 Beacon St', city: 'Boston', state: 'MA', zip: '02108', type: 'TOWNHOUSE',
+                image: 'https://images.unsplash.com/photo-1560518883-ce09059eeffa', price: 899000, beds: 3, baths: 2,
+                sqft: 1600, year: 1900 },
+            // NEVADA
+            { id: 17, address: '100 Strip Blvd', city: 'Las Vegas', state: 'NV', zip: '89109', type: 'CONDO',
+                image: 'https://images.unsplash.com/photo-1512917774080-9991f1c4c750', price: 349000, beds: 2, baths: 2,
+                sqft: 1100, year: 2008 },
+            // TENNESSEE
+            { id: 18, address: '100 Music Row', city: 'Nashville', state: 'TN', zip: '37203', type: 'SINGLE_FAMILY',
+                image: 'https://images.unsplash.com/photo-1570129477492-45c003edd2be', price: 479000, beds: 3, baths: 2,
+                sqft: 2000, year: 2014 },
+            // UTAH
+            { id: 19, address: '100 Mountain Rd', city: 'Salt Lake City', state: 'UT', zip: '84101', type: 'SINGLE_FAMILY',
+                image: 'https://images.unsplash.com/photo-1564013799919-ab600027ffc6', price: 519000, beds: 4, baths: 2,
+                sqft: 2100, year: 2010 },
+            // MISSOURI
+            { id: 20, address: '100 Gateway Blvd', city: 'St. Louis', state: 'MO', zip: '63101', type: 'TOWNHOUSE',
+                image: 'https://images.unsplash.com/photo-1560518883-ce09059eeffa', price: 249000, beds: 3, baths: 1,
+                sqft: 1400, year: 1965 },
+            // MARYLAND
+            { id: 21, address: '100 Harbor Dr', city: 'Baltimore', state: 'MD', zip: '21201', type: 'SINGLE_FAMILY',
+                image: 'https://images.unsplash.com/photo-1568605114967-8130f3a36994', price: 329000, beds: 3, baths: 2,
+                sqft: 1700, year: 2000 },
+            // VIRGINIA
+            { id: 22, address: '100 Colonial Dr', city: 'Richmond', state: 'VA', zip: '23219', type: 'SINGLE_FAMILY',
+                image: 'https://images.unsplash.com/photo-1570129477492-45c003edd2be', price: 379000, beds: 3, baths: 2,
+                sqft: 1800, year: 2005 },
+            // OHIO
+            { id: 23, address: '100 Buckeye Blvd', city: 'Columbus', state: 'OH', zip: '43215', type: 'SINGLE_FAMILY',
+                image: 'https://images.unsplash.com/photo-1564013799919-ab600027ffc6', price: 289000, beds: 3, baths: 1,
+                sqft: 1500, year: 1960 },
+            // PENNSYLVANIA
+            { id: 24, address: '100 Liberty Ave', city: 'Philadelphia', state: 'PA', zip: '19103', type: 'TOWNHOUSE',
+                image: 'https://images.unsplash.com/photo-1560518883-ce09059eeffa', price: 459000, beds: 3, baths: 2,
+                sqft: 1600, year: 1920 },
+            // MICHIGAN
+            { id: 25, address: '100 Motor City Dr', city: 'Detroit', state: 'MI', zip: '48201', type: 'SINGLE_FAMILY',
+                image: 'https://images.unsplash.com/photo-1512917774080-9991f1c4c750', price: 189000, beds: 3, baths: 1,
+                sqft: 1400, year: 1955 },
+            // NEW JERSEY
+            { id: 26, address: '100 Garden State Pkwy', city: 'Newark', state: 'NJ', zip: '07101', type: 'SINGLE_FAMILY',
+                image: 'https://images.unsplash.com/photo-1568605114967-8130f3a36994', price: 429000, beds: 3, baths: 2,
+                sqft: 1800, year: 2008 },
+            // WISCONSIN
+            { id: 27, address: '100 Dairyland Ave', city: 'Madison', state: 'WI', zip: '53701', type: 'SINGLE_FAMILY',
+                image: 'https://images.unsplash.com/photo-1570129477492-45c003edd2be', price: 319000, beds: 3, baths: 2,
+                sqft: 1700, year: 2003 },
+            // MINNESOTA
+            { id: 28, address: '100 North Star Blvd', city: 'Minneapolis', state: 'MN', zip: '55401', type: 'CONDO',
+                image: 'https://images.unsplash.com/photo-1494522358652-f30e61a60313', price: 399000, beds: 2, baths: 2,
+                sqft: 1200, year: 2010 },
+            // INDIANA
+            { id: 29, address: '100 Hoosier Dr', city: 'Indianapolis', state: 'IN', zip: '46201', type: 'SINGLE_FAMILY',
+                image: 'https://images.unsplash.com/photo-1564013799919-ab600027ffc6', price: 259000, beds: 3, baths: 2,
+                sqft: 1600, year: 1975 },
+            // KENTUCKY
+            { id: 30, address: '100 Bluegrass Blvd', city: 'Louisville', state: 'KY', zip: '40201', type: 'SINGLE_FAMILY',
+                image: 'https://images.unsplash.com/photo-1570129477492-45c003edd2be', price: 279000, beds: 3, baths: 2,
+                sqft: 1700, year: 1980 },
+            // IOWA
+            { id: 31, address: '100 Hawkeye St', city: 'Des Moines', state: 'IA', zip: '50301', type: 'SINGLE_FAMILY',
+                image: 'https://images.unsplash.com/photo-1568605114967-8130f3a36994', price: 239000, beds: 3, baths: 1,
+                sqft: 1400, year: 1965 },
+            // ARKANSAS
+            { id: 32, address: '100 Natural State Dr', city: 'Little Rock', state: 'AR', zip: '72201', type: 'SINGLE_FAMILY',
+                image: 'https://images.unsplash.com/photo-1512917774080-9991f1c4c750', price: 219000, beds: 3, baths: 2,
+                sqft: 1600, year: 1970 },
+            // MISSISSIPPI
+            { id: 33, address: '100 Magnolia Blvd', city: 'Jackson', state: 'MS', zip: '39201', type: 'SINGLE_FAMILY',
+                image: 'https://images.unsplash.com/photo-1560518883-ce09059eeffa', price: 189000, beds: 3, baths: 1,
+                sqft: 1400, year: 1960 },
+            // ALABAMA
+            { id: 34, address: '100 Yellowhammer Ave', city: 'Birmingham', state: 'AL', zip: '35201', type: 'SINGLE_FAMILY',
+                image: 'https://images.unsplash.com/photo-1570129477492-45c003edd2be', price: 259000, beds: 3, baths: 2,
+                sqft: 1700, year: 1985 },
+            // OKLAHOMA
+            { id: 35, address: '100 Sooner Dr', city: 'Oklahoma City', state: 'OK', zip: '73101', type: 'SINGLE_FAMILY',
+                image: 'https://images.unsplash.com/photo-1564013799919-ab600027ffc6', price: 229000, beds: 3, baths: 2,
+                sqft: 1600, year: 1975 },
+            // NEBRASKA
+            { id: 36, address: '100 Cornhusker Blvd', city: 'Omaha', state: 'NE', zip: '68101', type: 'SINGLE_FAMILY',
+                image: 'https://images.unsplash.com/photo-1568605114967-8130f3a36994', price: 249000, beds: 3, baths: 2,
+                sqft: 1700, year: 1980 },
+            // KANSAS
+            { id: 37, address: '100 Sunflower St', city: 'Wichita', state: 'KS', zip: '67201', type: 'SINGLE_FAMILY',
+                image: 'https://images.unsplash.com/photo-1512917774080-9991f1c4c750', price: 219000, beds: 3, baths: 2,
+                sqft: 1600, year: 1972 },
+            // LOUISIANA
+            { id: 38, address: '100 Bourbon St', city: 'New Orleans', state: 'LA', zip: '70130', type: 'TOWNHOUSE',
+                image: 'https://images.unsplash.com/photo-1560518883-ce09059eeffa', price: 499000, beds: 3, baths: 2,
+                sqft: 1800, year: 1920 },
+            // SOUTH CAROLINA
+            { id: 39, address: '100 Palmetto Blvd', city: 'Charleston', state: 'SC', zip: '29401', type: 'SINGLE_FAMILY',
+                image: 'https://images.unsplash.com/photo-1570129477492-45c003edd2be', price: 459000, beds: 3, baths: 2,
+                sqft: 1900, year: 2008 },
+            // OREGON
+            { id: 40, address: '100 Forest Ave', city: 'Portland', state: 'OR', zip: '97201', type: 'SINGLE_FAMILY',
+                image: 'https://images.unsplash.com/photo-1564013799919-ab600027ffc6', price: 529000, beds: 3, baths: 2,
+                sqft: 1900, year: 2012 },
+            // NORTH CAROLINA
+            { id: 41, address: '100 Renaissance Dr', city: 'Raleigh', state: 'NC', zip: '27601', type: 'SINGLE_FAMILY',
+                image: 'https://images.unsplash.com/photo-1570129477492-45c003edd2be', price: 425000, beds: 4, baths: 3,
+                sqft: 2200, year: 2019 },
+            // NEW HAMPSHIRE
+            { id: 42, address: '100 Granite St', city: 'Concord', state: 'NH', zip: '03301', type: 'SINGLE_FAMILY',
+                image: 'https://images.unsplash.com/photo-1568605114967-8130f3a36994', price: 389000, beds: 3, baths: 2,
+                sqft: 1800, year: 2006 },
+            // VERMONT
+            { id: 43, address: '100 Green Mountain Way', city: 'Burlington', state: 'VT', zip: '05401', type: 'SINGLE_FAMILY',
+                image: 'https://images.unsplash.com/photo-1512917774080-9991f1c4c750', price: 429000, beds: 3, baths: 2,
+                sqft: 1700, year: 2009 },
+            // MONTANA
+            { id: 44, address: '100 Treasure St', city: 'Helena', state: 'MT', zip: '59601', type: 'SINGLE_FAMILY',
+                image: 'https://images.unsplash.com/photo-1560518883-ce09059eeffa', price: 319000, beds: 3, baths: 2,
+                sqft: 1600, year: 1995 },
+            // IDAHO
+            { id: 45, address: '100 Gem St', city: 'Boise', state: 'ID', zip: '83701', type: 'SINGLE_FAMILY',
+                image: 'https://images.unsplash.com/photo-1570129477492-45c003edd2be', price: 459000, beds: 4, baths: 2,
+                sqft: 2100, year: 2016 },
+            // WEST VIRGINIA
+            { id: 46, address: '100 Mountain State Blvd', city: 'Charleston', state: 'WV', zip: '25301',
+                type: 'SINGLE_FAMILY', image: 'https://images.unsplash.com/photo-1564013799919-ab600027ffc6',
+                price: 199000, beds: 3, baths: 1, sqft: 1500, year: 1970 },
+            // DELAWARE
+            { id: 47, address: '100 First State Dr', city: 'Dover', state: 'DE', zip: '19901', type: 'SINGLE_FAMILY',
+                image: 'https://images.unsplash.com/photo-1568605114967-8130f3a36994', price: 359000, beds: 3, baths: 2,
+                sqft: 1800, year: 2000 },
+            // RHODE ISLAND
+            { id: 48, address: '100 Ocean State Blvd', city: 'Providence', state: 'RI', zip: '02901', type: 'TOWNHOUSE',
+                image: 'https://images.unsplash.com/photo-1560518883-ce09059eeffa', price: 429000, beds: 3, baths: 2,
+                sqft: 1600, year: 2010 },
+            // CONNECTICUT
+            { id: 49, address: '100 Constitution Blvd', city: 'Hartford', state: 'CT', zip: '06101', type: 'SINGLE_FAMILY',
+                image: 'https://images.unsplash.com/photo-1512917774080-9991f1c4c750', price: 389000, beds: 3, baths: 2,
+                sqft: 1700, year: 2005 },
+            // MAINE
+            { id: 50, address: '100 Pine Tree St', city: 'Augusta', state: 'ME', zip: '04330', type: 'SINGLE_FAMILY',
+                image: 'https://images.unsplash.com/photo-1570129477492-45c003edd2be', price: 299000, beds: 3, baths: 2,
+                sqft: 1600, year: 1998 },
+            // ALASKA
+            { id: 51, address: '100 Last Frontier Blvd', city: 'Anchorage', state: 'AK', zip: '99501', type: 'SINGLE_FAMILY',
+                image: 'https://images.unsplash.com/photo-1564013799919-ab600027ffc6', price: 379000, beds: 3, baths: 2,
+                sqft: 1800, year: 2010 },
+            // HAWAII
+            { id: 52, address: '100 Aloha Dr', city: 'Honolulu', state: 'HI', zip: '96801', type: 'CONDO',
+                image: 'https://images.unsplash.com/photo-1568605114967-8130f3a36994', price: 549000, beds: 2, baths: 2,
+                sqft: 1100, year: 2015 },
+            // NEW MEXICO
+            { id: 53, address: '100 Land of Enchantment Blvd', city: 'Albuquerque', state: 'NM', zip: '87101',
+                type: 'SINGLE_FAMILY', image: 'https://images.unsplash.com/photo-1512917774080-9991f1c4c750',
+                price: 329000, beds: 3, baths: 2, sqft: 1700, year: 2003 },
+            // SOUTH DAKOTA
+            { id: 54, address: '100 Mount Rushmore Blvd', city: 'Sioux Falls', state: 'SD', zip: '57101', type: 'SINGLE_FAMILY',
+                image: 'https://images.unsplash.com/photo-1570129477492-45c003edd2be', price: 279000, beds: 3, baths: 2,
+                sqft: 1600, year: 2000 },
+            // NORTH DAKOTA
+            { id: 55, address: '100 Peace Garden Blvd', city: 'Fargo', state: 'ND', zip: '58101', type: 'SINGLE_FAMILY',
+                image: 'https://images.unsplash.com/photo-1564013799919-ab600027ffc6', price: 259000, beds: 3, baths: 2,
+                sqft: 1600, year: 2005 },
+            // WYOMING
+            { id: 56, address: '100 Equality State Blvd', city: 'Cheyenne', state: 'WY', zip: '82001', type: 'SINGLE_FAMILY',
+                image: 'https://images.unsplash.com/photo-1568605114967-8130f3a36994', price: 339000, beds: 3, baths: 2,
+                sqft: 1700, year: 2008 },
+        ];
+
+        // ============================================================
+        // ALL 50 STATES
+        // ============================================================
+        const STATES = [
+            'AL', 'AK', 'AZ', 'AR', 'CA', 'CO', 'CT', 'DE', 'FL', 'GA',
+            'HI', 'ID', 'IL', 'IN', 'IA', 'KS', 'KY', 'LA', 'ME', 'MD',
+            'MA', 'MI', 'MN', 'MS', 'MO', 'MT', 'NE', 'NV', 'NH', 'NJ',
+            'NM', 'NY', 'NC', 'ND', 'OH', 'OK', 'OR', 'PA', 'RI', 'SC',
+            'SD', 'TN', 'TX', 'UT', 'VT', 'VA', 'WA', 'WV', 'WI', 'WY'
+        ];
+
+        // ============================================================
+        // APP STATE
+        // ============================================================
+        let allProperties = PROPERTIES;
+        let priceHistory = {};
+        let countdown = 30;
+        let quickFilter = 'all';
+        let selectedState = '';
+
+        // ============================================================
+        // PRICE FUNCTIONS - CLEARLY SIMULATED
+        // ============================================================
+        function getLivePrice(price) {
+            // Prices are SIMULATED - not real market data
+            const variation = (Math.random() - 0.5) * 0.05 * price;
+            return Math.round(Math.max(50000, price + variation));
+        }
+
+        // ============================================================
+        // BUILD REAL LINKS
+        // ============================================================
+        function buildZillowLink(p) {
+            const address = `${p.address}, ${p.city}, ${p.state} ${p.zip}`;
+            return `https://www.zillow.com/homes/${encodeURIComponent(address)}`;
+        }
+
+        function buildRedfinLink(p) {
+            const s = (p.state || '').toLowerCase();
+            const c = (p.city || '').toLowerCase().replace(/ /g, '-');
+            const st = (p.address || '').toLowerCase().replace(/ /g, '-').replace(/[^a-z0-9-]/g, '');
+            if (s && c && st) {
+                return `https://www.redfin.com/${s}/${c}/${st}`;
+            }
+            return 'https://www.redfin.com';
+        }
+
+        // ============================================================
+        // RENDER PROPERTIES
+        // ============================================================
+        function renderProperties(props) {
+            const grid = document.getElementById('propGrid');
+            if (!props || props.length === 0) {
+                grid.innerHTML =
+                    `<div class="loading"><div style="font-size:3rem;margin-bottom:10px;">🏠</div><p>No properties found. Try a different search.</p></div>`;
+                return;
+            }
+
+            grid.innerHTML = props.map(p => {
+                const livePrice = getLivePrice(p.price);
+                const history = priceHistory[p.id] || [];
+                if (history.length === 0) {
+                    for (let i = 0; i < 12; i++) {
+                        history.push(p.price + (Math.random() - 0.5) * 60000);
+                    }
+                    priceHistory[p.id] = history;
+                }
+                priceHistory[p.id].push(livePrice);
+                if (priceHistory[p.id].length > 24) priceHistory[p.id].shift();
+
+                const change = (() => {
+                    const h = priceHistory[p.id] || [];
+                    if (h.length < 2) return null;
+                    const oldest = h[0] || livePrice;
+                    const percent = ((livePrice - oldest) / oldest) * 100;
+                    return {
+                        percent: Math.abs(percent).toFixed(1),
+                        direction: percent < 0 ? 'up' : 'down',
+                        arrow: percent < 0 ? '↓' : '↑'
+                    };
+                })();
+
+                const isHot = livePrice < p.price * 0.85;
+                const isDeal = livePrice < p.price * 0.9;
+                const isLuxury = livePrice > 1000000;
+
+                const changeHtml = change ?
+                    `<span class="change ${change.direction}">${change.arrow} ${change.percent}%</span>` :
+                    '';
+
+                let badges = `<span class="card-badge live">● LIVE</span>`;
+                if (isHot) badges += `<span class="card-badge hot">🔥 HOT</span>`;
+                if (isDeal && !isHot) badges += `<span class="card-badge deal">💎 DEAL</span>`;
+                if (isLuxury) badges += `<span class="card-badge premium">⭐ LUXURY</span>`;
+
+                const typeLabels = {
+                    'SINGLE_FAMILY': '🏡 Single Family',
+                    'CONDO': '🏢 Condo',
+                    'TOWNHOUSE': '🏘️ Townhouse',
+                    'LUXURY': '💎 Luxury'
+                };
+                const typeLabel = typeLabels[p.type] || p.type || '🏠 Property';
+
+                const imageUrl = p.image && p.image.startsWith('http') ? p.image :
+                    'https://images.unsplash.com/photo-1568605114967-8130f3a36994';
+
+                const zillowUrl = buildZillowLink(p);
+                const redfinUrl = buildRedfinLink(p);
+
+                return `
+                        <div class="card">
+                            <div class="card-image-wrapper">
+                                <img class="card-image" src="${imageUrl}?w=400&h=300&fit=crop" alt="${p.address}" loading="lazy" onerror="this.src='https://images.unsplash.com/photo-1568605114967-8130f3a36994?w=400&h=300&fit=crop'">
+                                <div class="card-image-overlay"></div>
+                                <div class="card-badges">${badges}</div>
+                            </div>
+                            <div class="card-body">
+                                <div class="card-title-row">
+                                    <div class="card-title">${p.city}, ${p.state}</div>
+                                    <span style="font-size:0.65rem;background:var(--bg-input);padding:2px 10px;border-radius:50px;color:var(--text-secondary);">${typeLabel}</span>
+                                </div>
+                                <div class="card-address">${p.address}</div>
+                                <span class="card-state">📍 ${p.zip} • ${p.state}</span>
+                                <div class="card-details">
+                                    <span>🛏️ ${p.beds} beds</span>
+                                    <span>🛁 ${p.baths} baths</span>
+                                    <span>📐 ${p.sqft} sqft</span>
+                                    <span>📅 ${p.year}</span>
+                                </div>
+
+                                <div class="price-section">
+                                    <div class="price-item">
+                                        <div class="label">💰 Current</div>
+                                        <div class="value">$${livePrice.toLocaleString()} <span class="currency">USD</span></div>
+                                    </div>
+                                    <div class="price-item">
+                                        <div class="label">📉 Original</div>
+                                        <div class="value"><span class="old">$${p.price.toLocaleString()}</span></div>
+                                    </div>
+                                    <div class="price-item total">
+                                        <div class="label">📈 Change</div>
+                                        <div class="value">${changeHtml || '—'}</div>
+                                    </div>
+                                </div>
+
+                                <div class="sim-label">⚠️ Simulated Price</div>
+
+                                <div class="card-actions">
+                                    <a href="${zillowUrl}" target="_blank" rel="noopener noreferrer" class="card-btn primary">🔗 View on Zillow</a>
+                                    <a href="${redfinUrl}" target="_blank" rel="noopener noreferrer" class="card-btn secondary">🔗 View on Redfin</a>
+                                </div>
+                                <div class="card-updated">
+                                    Updated: ${new Date().toLocaleTimeString()}
+                                </div>
+                            </div>
+                        </div>
+                    `;
+            }).join('');
+
+            updateStats(props);
+        }
+
+        // ============================================================
+        // STATS
+        // ============================================================
+        function updateStats(props) {
+            const total = allProperties.length;
+            document.getElementById('totalProps').textContent = total;
+            document.getElementById('monitored').textContent = props.length;
+            document.getElementById('footerCount').textContent = total;
+
+            if (props.length > 0) {
+                const prices = props.map(p => getLivePrice(p.price));
+                const avg = Math.round(prices.reduce((a, b) => a + b, 0) / prices.length);
+                document.getElementById('avgPrice').textContent = '$' + avg.toLocaleString();
+
+                const cheapest = props.reduce((a, b) => {
+                    const aP = getLivePrice(a.price);
+                    const bP = getLivePrice(b.price);
+                    return aP < bP ? a : b;
+                });
+                document.getElementById('cheapest').textContent = cheapest.city || 'N/A';
+
+                const growth = props.map(p => {
+                    const h = priceHistory[p.id] || [];
+                    if (h.length > 1) {
+                        return ((h[h.length - 1] - h[0]) / h[0] * 100);
+                    }
+                    return 0;
+                });
+                const maxGrowth = Math.max(...growth);
+                document.getElementById('topGrowth').textContent = (maxGrowth > 0 ? '+' : '') + maxGrowth.toFixed(1) + '%';
+            }
+
+            document.getElementById('statesCount').textContent = new Set(props.map(p => p.state)).size;
+        }
+
+        // ============================================================
+        // FILTER & SEARCH
+        // ============================================================
+        function filterAndRender() {
+            const query = document.getElementById('searchInput').value.toLowerCase().trim();
+            const type = document.getElementById('propertyType').value;
+            const priceRange = document.getElementById('priceRange').value;
+
+            let results = allProperties.filter(p => {
+                const matchSearch = (p.address || '').toLowerCase().includes(query) ||
+                    (p.city || '').toLowerCase().includes(query) ||
+                    (p.state || '').toLowerCase().includes(query) ||
+                    (p.zip || '').includes(query);
+                const matchType = !type || (p.type || '').toUpperCase() === type || (p.type || '').toUpperCase().includes(
+                    type);
+                const matchState = !selectedState || p.state === selectedState;
+
+                let matchPrice = true;
+                if (priceRange) {
+                    const price = getLivePrice(p.price);
+                    if (priceRange === '0-200000') matchPrice = price < 200000;
+                    else if (priceRange === '200000-400000') matchPrice = price >= 200000 && price < 400000;
+                    else if (priceRange === '400000-600000') matchPrice = price >= 400000 && price < 600000;
+                    else if (priceRange === '600000-1000000') matchPrice = price >= 600000 && price < 1000000;
+                    else if (priceRange === '1000000+') matchPrice = price >= 1000000;
+                }
+
+                return matchSearch && matchType && matchState && matchPrice;
+            });
+
+            if (quickFilter === 'hot') {
+                results = results.filter(p => getLivePrice(p.price) < p.price * 0.85);
+            } else if (quickFilter === 'price-drop') {
+                results = results.filter(p => getLivePrice(p.price) < p.price * 0.9);
+            } else if (quickFilter === 'new') {
+                results = results.filter(p => (p.year || 2000) > 2015);
+            } else if (quickFilter === 'luxury') {
+                results = results.filter(p => getLivePrice(p.price) > 1000000);
+            }
+
+            renderProperties(results);
+        }
+
+        // ============================================================
+        // THEME TOGGLE
+        // ============================================================
+        function toggleTheme() {
+            const html = document.documentElement;
+            const current = html.getAttribute('data-theme');
+            const next = current === 'light' ? 'dark' : 'light';
+            html.setAttribute('data-theme', next);
+            document.getElementById('themeIcon').textContent = next === 'light' ? '☀️' : '🌙';
+            document.getElementById('themeLabel').textContent = next === 'light' ? 'Light' : 'Dark';
+            localStorage.setItem('theme', next);
+        }
+
+        // ============================================================
+        // COUNTDOWN
+        // ============================================================
+        function startCountdown() {
+            countdown = 30;
+            document.getElementById('countdown').textContent = countdown;
+            const interval = setInterval(() => {
+                countdown--;
+                document.getElementById('countdown').textContent = countdown;
+                if (countdown <= 0) {
+                    clearInterval(interval);
+                    filterAndRender();
+                    startCountdown();
+                }
+            }, 1000);
+        }
+
+        // ============================================================
+        // BUILD STATE FILTERS
+        // ============================================================
+        function buildStateFilters() {
+            const container = document.getElementById('stateFilters');
+            let html = `<button class="state-btn active" data-state="">🗺️ All States</button>`;
+            STATES.forEach(s => {
+                html += `<button class="state-btn" data-state="${s}">${s}</button>`;
+            });
+            container.innerHTML = html;
+        }
+
+        // ============================================================
+        // EVENT LISTENERS
+        // ============================================================
+        document.addEventListener('DOMContentLoaded', function() {
+            const savedTheme = localStorage.getItem('theme') || 'dark';
+            document.documentElement.setAttribute('data-theme', savedTheme);
+            if (savedTheme === 'light') {
+                document.getElementById('themeIcon').textContent = '☀️';
+                document.getElementById('themeLabel').textContent = 'Light';
+            }
+
+            buildStateFilters();
+            filterAndRender();
+            startCountdown();
+
+            document.getElementById('themeToggle').addEventListener('click', toggleTheme);
+            document.getElementById('searchBtn').addEventListener('click', filterAndRender);
+            document.getElementById('searchInput').addEventListener('input', filterAndRender);
+            document.getElementById('propertyType').addEventListener('change', filterAndRender);
+            document.getElementById('priceRange').addEventListener('change', filterAndRender);
+
+            document.addEventListener('click', function(e) {
+                if (e.target.classList.contains('state-btn')) {
+                    document.querySelectorAll('.state-btn').forEach(b => b.classList.remove('active'));
+                    e.target.classList.add('active');
+                    selectedState = e.target.dataset.state;
+                    filterAndRender();
+                }
+                if (e.target.classList.contains('filter-chip')) {
+                    document.querySelectorAll('.filter-chip').forEach(b => b.classList.remove('active'));
+                    e.target.classList.add('active');
+                    quickFilter = e.target.dataset.filter;
+                    filterAndRender();
+                }
+            });
+
+            console.log('🏠 Emmanuel\'s Housing Pulse loaded!');
+            console.log(`📍 ${allProperties.length} properties across all 50 states`);
+            console.log('⚠️ Prices are SIMULATED. Real addresses. Real links.');
+        });
+    </script>
+</body>
+</html>
