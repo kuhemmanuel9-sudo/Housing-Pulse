@@ -1,108 +1,145 @@
-# 🏠 Housing Pulse — U.S. Housing Market Dashboard
+# Housing Pulse
 
-Housing Pulse is an interactive front-end dashboard that explores **simulated residential property data across all 50 U.S. states**. I built it as a portfolio project to practice data modeling, responsive UI design, filtering, client-side state management, visualization, and export functionality.
+An interactive real estate dashboard for exploring residential properties across all 50 U.S. states.
 
-> **Important:** The properties and prices in this project are synthetic. They are generated for learning and demonstration and are **not live MLS, Zillow, Redfin, assessor, or lender data**.
+Housing Pulse is a front-end project built with HTML, CSS, and JavaScript that lets users browse homes, filter by location and property type, and explore simulated housing prices through a clean, responsive interface.
 
-## 🌎 Coverage
+The project combines real property locations and links with simulated pricing to demonstrate dashboard development, data visualization, and interactive web design.
 
-The app includes a structured property dataset covering **all 50 states**. Each state has multiple simulated records, with different cities, property types, prices, bedroom counts, square footage, and years built.
-
-The current demo generates **200 simulated properties (4 per state)** so the interface can demonstrate real filtering and comparison behavior without pretending to provide an incomplete or fake “live listings” feed.
-
-## Features
-
-- All **50 states** represented in the dataset
-- 200 simulated property records
-- Search by address, city, state, ZIP, or state name
-- Filter by state, property type, and price range
-- Quick filters for favorites, newer homes, affordable homes, and luxury homes
-- Sort by price, city, state, and bedrooms
-- Responsive cards for desktop, tablet, and mobile
-- Light / dark theme with local persistence
-- Favorites stored in `localStorage`
-- Compare up to four properties
-- Property detail modal with simulated price history visualization
-- CSV export for the full synthetic dataset
-- Lazy-loaded property images
-- Accessible labels and descriptive status text
-- Clear synthetic-data disclaimer throughout the app
-
-##  Tech Stack
-
-- HTML5
-- CSS3
-- Vanilla JavaScript
-- CSS Grid / Flexbox
-- SVG-free CSS bar charts
-- `localStorage` for saved preferences
-- GitHub Pages compatible
-
-## Run Locally
-
-No build system or package installation is required.
-
-```bash
-git clone https://github.com/kuhemmanuel9-sudo/Travel-price-dashboard.git
-cd Travel-price-dashboard
-```
-
-Open `index.html` in a modern browser, or serve the folder with any static HTTP server.
-
-## 📁 Project Structure
-
-```text
-Housing-Pulse/
-├── index.html
-└── README.md
-```
-
-The current version intentionally keeps the app dependency-free so it is easy to inspect and deploy.
-
-##  How the Data Works
-
-The property records are generated from a state-level configuration containing:
-
-- State abbreviation and full name
-- Representative city
-- Base property price
-- Property type
-- Bedrooms and bathrooms
-- Square footage
-- Year built
-- Sample image
-
-A deterministic daily variation is applied to the base price so the dashboard can demonstrate changing market values without presenting the result as real-world data.
-
-## Data Transparency
-
-This project does **not** claim to provide real estate listings or live market data.
-
-The buttons and interface are intentionally designed as a realistic dashboard prototype. A production version could replace the synthetic data layer with licensed APIs, MLS feeds, public assessor data, or another authorized source.
-
-##  Possible Next Steps
-
-- Connect to a licensed real-estate API
-- Add an interactive U.S. map
-- Add county / metro-level analysis
-- Add mortgage and affordability calculators
-- Add rental market mode
-- Add historical market series from authorized sources
-- Add authentication and saved dashboards
-- Add backend caching and API rate-limit handling
-- Add automated tests and CI/CD
-
-##  About
-
-Built by **Emmanuel Kuh** as a portfolio project focused on analytics, interactive dashboards, data visualization, and practical web development.
-
-- GitHub: https://github.com/kuhemmanuel9-sudo
-
-
-## License
-
-MIT License : use, modify, and share the project with attribution.
+**Live Demo:** *(Add your GitHub Pages link here)*
 
 ---
 
-**Note:** “All 50 states” means the demo contains coverage for every U.S. state. It does **not** mean every individual property in the United States, which would require a live property-data source and a substantially different data architecture.
+## Overview
+
+The goal of this project was to build a modern real estate dashboard that feels similar to a professional property search platform while demonstrating JavaScript programming, responsive design, filtering, and dynamic user interfaces.
+
+Users can search properties, browse every U.S. state, explore different property types, and view continuously updating simulated market prices.
+
+---
+
+## Features
+
+- Browse residential properties across all 50 states
+- Search by address, city, state, or ZIP code
+- Filter by property type and price range
+- Filter by Hot Deals, Price Drops, New Listings, and Luxury Homes
+- Light and dark mode
+- Responsive layout for desktop, tablet, and mobile
+- Automatic price updates every 30 seconds
+- Dashboard statistics that update automatically
+- Direct links to Zillow and Redfin for each property
+
+---
+
+## Property Information
+
+Each listing includes:
+
+- Address
+- City
+- State
+- ZIP code
+- Property type
+- Bedrooms
+- Bathrooms
+- Square footage
+- Year built
+- Original price
+- Simulated current market price
+- Simulated price movement
+
+---
+
+## Technologies
+
+- HTML5
+- CSS3
+- JavaScript (Vanilla)
+- CSS Grid
+- Flexbox
+- Local Storage
+
+No frameworks or external libraries are required.
+
+---
+
+## Running the Project
+
+Clone the repository:
+
+```bash
+git clone https://github.com/kuhemmanuel9-sudo/Housing-Pulse.git
+```
+
+Open `index.html` in your browser.
+
+No installation or build process is required.
+
+---
+
+## Data
+
+This project uses two different kinds of information.
+
+### Real data
+
+- Property addresses
+- Cities
+- States
+- ZIP codes
+- Property characteristics
+- Zillow links
+- Redfin links
+
+### Simulated data
+
+- Current property prices
+- Market changes
+- Price movement
+- Dashboard analytics
+- Growth indicators
+
+Prices are intentionally simulated to demonstrate how a live dashboard works. They are **not** connected to Zillow, Redfin, MLS, or any other real estate API.
+
+---
+
+## Future Improvements
+
+Planned enhancements include:
+
+- Interactive U.S. map
+- Mortgage calculator
+- Property comparison
+- Favorites
+- Neighborhood information
+- School ratings
+- Crime statistics
+- Walkability scores
+- Historical price trends
+- CSV export
+- API integration with real housing data (where available)
+
+---
+
+## About
+
+I'm Emmanuel Kuh, an M.S. student in Economic Analytics with interests in data analytics, econometrics, visualization,Machine Learning and software development.
+
+I built this project to strengthen my front-end development skills while creating an interactive dashboard that demonstrates filtering, responsive design, and dynamic data visualization.
+
+---
+
+## License
+
+MIT License
+
+You are free to use, modify, and distribute this project under the terms of the MIT License.
+
+---
+
+## Disclaimer
+
+Housing Pulse is an educational and portfolio project.
+
+Although the property locations, addresses, and external links are based on real places, **all prices, market movements, and analytics shown in the dashboard are simulated** and should not be interpreted as actual real estate values.
