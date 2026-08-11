@@ -10,7 +10,7 @@ The app includes a structured property dataset covering **all 50 states**. Each 
 
 The current demo generates **200 simulated properties (4 per state)** so the interface can demonstrate real filtering and comparison behavior without pretending to provide an incomplete or fake “live listings” feed.
 
-## ✨ Features
+## Features
 
 - All **50 states** represented in the dataset
 - 200 simulated property records
@@ -97,7 +97,7 @@ The buttons and interface are intentionally designed as a realistic dashboard pr
 Built by **Emmanuel Kuh** as a portfolio project focused on analytics, interactive dashboards, data visualization, and practical web development.
 
 - GitHub: https://github.com/kuhemmanuel9-sudo
-- LinkedIn: add your profile link here
+
 
 ## 📄 License
 
