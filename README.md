@@ -124,7 +124,7 @@ Planned enhancements include:
 
 ## About
 
-I'm Emmanuel Kuh, an M.S. student in Economic Analytics with interests in data analytics, econometrics, visualization,Machine Learning and software development.
+I'm Emmanuel Kuh, an M.S. student in Economic Analytics with interests in data analytics, econometrics, visualization, and software development.
 
 I built this project to strengthen my front-end development skills while creating an interactive dashboard that demonstrates filtering, responsive design, and dynamic data visualization.
 
